@@ -20,7 +20,7 @@ app.use("/", indexRouter);
 const PORT = process.env.PORT || 4000;
 
 const server = app.listen(PORT, () =>
-  console.log("http server runnning PORT : ", PORT)
+  console.log("http server runnning PORT :", PORT)
 );
 
 module.exports = server;
