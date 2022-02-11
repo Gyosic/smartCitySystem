@@ -72,7 +72,7 @@ function Situation() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER_URL)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api`)
       .then((res) => setChart(res.data.dataList.chart));
   }, []);
 

@@ -49,7 +49,7 @@ function Main() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER_URL)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api`)
       .then((res) => console.log(res.data));
   }, []);
 

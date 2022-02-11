@@ -3,7 +3,7 @@ const { chart, position, status } = require("../data/data");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", function (req, res, next) {
+router.get("/api", function (req, res, next) {
   res.send({ dataList: { chart, position, status } });
 });
 

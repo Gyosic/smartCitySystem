@@ -154,7 +154,7 @@ function OperationStatus() {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_SERVER_URL)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api`)
       .then((res) => setStatus(res.data.dataList.status));
   });
 
