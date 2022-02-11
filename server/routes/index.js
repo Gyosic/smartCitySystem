@@ -7,16 +7,4 @@ router.get("/", function (req, res, next) {
   res.send({ dataList: { chart, position, status } });
 });
 
-router.get("/chart", function (req, res, next) {
-  res.json({ response: chart });
-});
-
-router.get("/operation", function (req, res, next) {
-  res.json({ response: position });
-});
-
-router.get("/service", function (req, res, next) {
-  res.json({ response: status });
-});
-
 module.exports = router;

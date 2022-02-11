@@ -211,8 +211,8 @@ function AlertService() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/operation`)
-      .then((res) => setPosition(res.data.response));
+      .get(process.env.REACT_APP_SERVER_URL)
+      .then((res) => setPosition(res.data.dataList.position));
   });
 
   return (

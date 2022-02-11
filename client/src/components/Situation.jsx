@@ -68,12 +68,12 @@ const ChartSection = styled.div`
 `;
 
 function Situation() {
-  const [state, setState] = useState({});
+  const [chart, setChart] = useState({});
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/chart`)
-      .then((res) => setState(res.data.response));
+      .get(process.env.REACT_APP_SERVER_URL)
+      .then((res) => setChart(res.data.dataList.chart));
   }, []);
 
   return (
@@ -81,12 +81,12 @@ function Situation() {
       <h3>스마트 도시 서비스 주요 현황</h3>
       <ChartSection>
         <h4>위험시설물 예·경보 알림 서비스</h4>
-        <Chart data={state.data1} />
+        <Chart data={chart.data1} />
         <span>시설물등급</span>
       </ChartSection>
       <ChartSection>
         <h5>홀몸어르신 안심 서비스</h5>
-        <Chart data={state.data2} />
+        <Chart data={chart.data2} />
         <p>
           어르신 <br />
           위험등급
@@ -94,7 +94,7 @@ function Situation() {
       </ChartSection>
       <ChartSection>
         <h5>어린이집 알림 서비스</h5>
-        <Chart data={state.data3} />
+        <Chart data={chart.data3} />
         <p>
           단말상태 <br />
           총149개
