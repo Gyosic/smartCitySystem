@@ -69,7 +69,6 @@ const ChartSection = styled.div`
 
 function Situation() {
   const [state, setState] = useState({});
-  console.log(state);
 
   useEffect(() => {
     axios
