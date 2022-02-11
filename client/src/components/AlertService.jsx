@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 const AlertServiceContainer = styled.div`
@@ -117,10 +119,6 @@ const Section = styled.div`
       border-radius: 10.5px;
       background: #ffffff;
       z-index: 10;
-
-      &.third {
-        width: 68px;
-      }
     }
 
     .line {
@@ -143,10 +141,15 @@ const Section = styled.div`
       background: #f2f4f8;
       z-index: 10;
       margin-left: 60px;
+    }
 
-      &.third {
+    &.place:nth-child(4) {
+      .num {
         width: 57px;
         margin-left: 40px;
+      }
+      .tag {
+        width: 68px;
       }
     }
   }
@@ -204,6 +207,14 @@ const Alert = styled.div`
 `;
 
 function AlertService() {
+  const [position, setPosition] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/operation`)
+      .then((res) => setPosition(res.data.response));
+  });
+
   return (
     <AlertServiceContainer>
       <Header>
@@ -222,21 +233,13 @@ function AlertService() {
           <div className="dot" />
           <span>설치위치</span>
         </div>
-        <div className="place">
-          <div className="tag">위도</div>
-          <div className="line"></div>
-          <div className="num">37.49999581324621</div>
-        </div>
-        <div className="place">
-          <div className="tag">경도</div>
-          <div className="line"></div>
-          <div className="num">126.86281102222206</div>
-        </div>
-        <div className="place">
-          <div className="tag third">고도(m)</div>
-          <div className="line"></div>
-          <div className="num third">2.60</div>
-        </div>
+        {position.map((el, idx) => (
+          <div className="place" key={idx}>
+            <div className="tag">{el.tag}</div>
+            <div className="line"></div>
+            <div className="num">{el.num}</div>
+          </div>
+        ))}
       </Section>
       <Section>
         <div

@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Dots from "./Dots";
 
@@ -148,6 +150,14 @@ const Section = styled.div`
 `;
 
 function OperationStatus() {
+  const [status, setStatus] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/service`)
+      .then((res) => setStatus(res.data.response));
+  });
+
   return (
     <OperationStatusContainer>
       <h3>대상시설 및 단말 운영 현황</h3>
@@ -165,76 +175,36 @@ function OperationStatus() {
           <span>이벤트</span>
         </div>
       </Legend>
-      <Section>
-        <div className="dash_line" />
-        <div
-          style={{ display: "flex", alignItems: "center", marginBottom: "8px" }}
-        >
-          <div className="dot" />
-          <span>위험시설물 예경보 알림 서비스</span>
-        </div>
-        <div className="target_facility">
-          <span>대상시설</span>
-          <strong className="s_first">320</strong>
-          <span>개소</span>
-          <strong className="s_second">3</strong>
-          <strong className="s_third">5</strong>
-        </div>
-        <div className="terminal">
-          <span>단말기</span>
-          <strong className="s_first">632</strong>
-          <span>개</span>
-          <strong className="s_second">8</strong>
-          <strong className="s_third">12</strong>
-        </div>
-      </Section>
-      <Section>
-        <div className="dash_line" />
-        <div
-          style={{ display: "flex", alignItems: "center", marginBottom: "8px" }}
-        >
-          <div className="dot" />
-          <span>교차로 알림 서비스</span>
-        </div>
-        <div className="target_facility">
-          <span>대상시설</span>
-          <strong className="s_first">320</strong>
-          <span>개소</span>
-          <strong className="s_second">3</strong>
-          <strong className="s_third">5</strong>
-        </div>
-        <div className="terminal">
-          <span>단말기</span>
-          <strong className="s_first">632</strong>
-          <span>개</span>
-          <strong className="s_second">8</strong>
-          <strong className="s_third">12</strong>
-        </div>
-      </Section>
-      <Section>
-        <div className="dash_line" />
-        <div
-          style={{ display: "flex", alignItems: "center", marginBottom: "8px" }}
-        >
-          <div className="dot" />
-          <span>우회전 알리미 서비스</span>
-        </div>
-        <div className="target_facility">
-          <span>대상시설</span>
-          <strong className="s_first">320</strong>
-          <span>개소</span>
-          <strong className="s_second">3</strong>
-          <strong className="s_third">5</strong>
-        </div>
-        <div className="terminal">
-          <span>단말기</span>
-          <strong className="s_first">632</strong>
-          <span>개</span>
-          <strong className="s_second">8</strong>
-          <strong className="s_third">12</strong>
-        </div>
-        <div className="dash_line_4" />
-      </Section>
+      {status.map((el, idx) => (
+        <Section key={idx}>
+          <div className="dash_line" />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "8px",
+            }}
+          >
+            <div className="dot" />
+            <span>{el.name}</span>
+          </div>
+          <div className="target_facility">
+            <span>대상시설</span>
+            <strong className="s_first">{el.target.setup}</strong>
+            <span>개소</span>
+            <strong className="s_second">{el.target.alert}</strong>
+            <strong className="s_third">{el.target.event}</strong>
+          </div>
+          <div className="terminal">
+            <span>단말기</span>
+            <strong className="s_first">{el.terminal.setup}</strong>
+            <span>개</span>
+            <strong className="s_second">{el.terminal.alert}</strong>
+            <strong className="s_third">{el.terminal.event}</strong>
+          </div>
+          {idx === 2 ? <div className="dash_line_4" /> : null}
+        </Section>
+      ))}
       <Dots />
     </OperationStatusContainer>
   );

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Chart from "./Chart";
 import Dots from "./Dots";
@@ -66,44 +68,26 @@ const ChartSection = styled.div`
 `;
 
 function Situation() {
-  const data1 = [
-    { value: 76, name: "A 등급" },
-    { value: 67, name: "B 등급" },
-    { value: 54, name: "C 등급" },
-    { value: 26, name: "D 등급" },
-    { value: 18, name: "E 등급" },
-  ];
+  const [state, setState] = useState({});
+  console.log(state);
 
-  const data2 = [
-    { value: 134, name: "정상" },
-    { value: 32, name: "보통" },
-    { value: 15, name: "주의" },
-    { value: 2, name: "위험" },
-    { value: 1, name: "고독사예지" },
-  ];
-
-  const data3 = [
-    { value: 134, name: "등원" },
-    { value: 15, name: "미등원" },
-    { value: 136, name: "등원승차" },
-    { value: 14, name: "미등원승차" },
-    { value: 131, name: "하원" },
-    { value: 18, name: "미하원" },
-    { value: 143, name: "하원승차" },
-    { value: 15, name: "미하원승차" },
-  ];
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/chart`)
+      .then((res) => setState(res.data.response));
+  }, []);
 
   return (
     <SituationContainer>
       <h3>스마트 도시 서비스 주요 현황</h3>
       <ChartSection>
         <h4>위험시설물 예·경보 알림 서비스</h4>
-        <Chart data={data1} />
+        <Chart data={state.data1} />
         <span>시설물등급</span>
       </ChartSection>
       <ChartSection>
         <h5>홀몸어르신 안심 서비스</h5>
-        <Chart data={data2} />
+        <Chart data={state.data2} />
         <p>
           어르신 <br />
           위험등급
@@ -111,7 +95,7 @@ function Situation() {
       </ChartSection>
       <ChartSection>
         <h5>어린이집 알림 서비스</h5>
-        <Chart data={data3} />
+        <Chart data={state.data3} />
         <p>
           단말상태 <br />
           총149개
