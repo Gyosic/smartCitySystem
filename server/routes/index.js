@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", function (req, res, next) {
-  res.send("Hello World!");
+  res.send({ dataList: { chart, position, status } });
 });
 
 router.get("/chart", function (req, res, next) {
