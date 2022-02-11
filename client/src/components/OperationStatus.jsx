@@ -156,7 +156,7 @@ function OperationStatus() {
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/api`)
       .then((res) => setStatus(res.data.dataList.status));
-  });
+  }, []);
 
   return (
     <OperationStatusContainer>

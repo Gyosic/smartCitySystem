@@ -213,7 +213,7 @@ function AlertService() {
     axios
       .get(`${process.env.REACT_APP_SERVER_URL}/api`)
       .then((res) => setPosition(res.data.dataList.position));
-  });
+  }, []);
 
   return (
     <AlertServiceContainer>
