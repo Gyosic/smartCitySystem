@@ -2,7 +2,7 @@ const { chart, position, status } = require("../data/data");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", function (res, req, next) {
+router.get("/", function (req, res, next) {
   res.send("Hello World! Smart City System Server!");
 });
 
