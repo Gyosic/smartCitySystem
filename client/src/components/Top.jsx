@@ -47,7 +47,7 @@ const User = styled.div`
   width: 180px;
 `;
 
-function Top() {
+function Top({ ip }) {
   return (
     <TopContainer>
       <Title>
@@ -63,9 +63,7 @@ function Top() {
       </Menu>
       <User>
         <div>
-          <span style={{ fontSize: "12px", color: "#697077" }}>
-            IP: 256.23.123.89
-          </span>
+          <span style={{ fontSize: "12px", color: "#697077" }}>{ip}</span>
           <br />
           <span style={{ fontSize: "16px", color: "#027fc2" }}>관리자 </span>
           <span
